@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head.ejs') %>
+
+<body>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <div class="create-user content">
+        <h1>Register</h1>
+        <form action="/user/register" method="POST">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" required>
+            <label for="password">Password</label>
+            <input type="password" name="passsword" id="password" required>
+            <label for="password2">confirm passowrd</label>
+            <input type="password" name="passsword2" id="password2" required>
+            <label for="contact">Contact No</label>
+            <input type="tel" name="contact" id="contact" required>
+            <label for="budget">Budget</label>
+            <input type="number" name="budget" id="budget" required>
+
+            <button>submit</button>
+        </form>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+
+</body>
+
+</html>
