@@ -1,7 +1,8 @@
 const express = require('express');
+const router = express.Router();
 const userController = require('../controllers/userController');
 
-const router = express.Router();
+
 
 router.get('/', userController.user_index);
 //User Routes
@@ -9,7 +10,7 @@ router.get('/', userController.user_index);
 router.get('/register', userController.user_register_get);
 
 //Register process
-router.post('/register', userController.user_register_post);
+router.post('/', userController.user_register_post);
 
 router.get('/login', userController.login);
 

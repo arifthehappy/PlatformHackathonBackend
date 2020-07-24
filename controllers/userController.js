@@ -1,6 +1,7 @@
 const User = require('../models/user');
-const express = require('express');
+
 const bcrypt = require('bcryptjs');
+
 //const router = require('../routes/userRoutes');
 
 const user_index = (req, res) => {
@@ -18,7 +19,6 @@ const user_register_post = (req, res) => {
     const email = req.body.email;
     const username = req.body.username;
     const password = req.body.password;
-    const password2 = req.body.password2;
     const contact = req.body.contact;
     const budget = req.body.budget;
     // const user = new User(req.body);
@@ -30,41 +30,40 @@ const user_register_post = (req, res) => {
     //         console.log(err);
     //     });
 
-    req.checkBody('password', 'password is required').notEmpty();
-    req.checkBody('password2', 'Passwords do not match').equals(res.body.password);
+    // req.checkBody('password', 'password is required').notEmpty();
+    // req.checkBody('password2', 'Passwords do not match').equals(res.body.password);
 
-    let errors = req.validationErrors();
+    //let errors = req.validationErrors();    
 
-    if (errors) {
-        res.render('register', {
-            errors: errors
-        });
-    } else {
-        let newUser = new User({
-            name: name,
-            email: email,
-            username: username,
-            password: password
-        });
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
+    let newUser = new User({
+        name: name,
+        email: email,
+        username: username,
+        password: password,
+        contact: contact,
+        budget: budget
+    });
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash('newUser.password', salt, (err, hash) => {
+            if (err) {
+                console.log(err);
+            }
+            newUser.password = hash;
+            newUser.save((err) => {
                 if (err) {
                     console.log(err);
-                }
-                newUser.password = hash;
-                newUser.save((err) => {
-                    if (err) {
-                        console.log(err);
-                        return;
-                    } else {
-                        req.flash('success', 'you are now registered and can log in');
-                        res.redirect('/user/login');
-                    }
+                    return;
+                } else {
 
-                });
+
+                    res.redirect('/users/login');
+
+                }
+
             });
         });
-    }
+    });
+
 }
 
 const login = (req, res) => {

@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const { stringify } = require('querystring');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     index: {
         type: Number,
         default: 0,
-        //unique: true
+        unique: true
     },
     name: {
         type: String,
@@ -15,15 +16,18 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    username: {
+        type: String
+    },
     password: {
         type: String,
         required: true
     },
-    contactNumber: {
+    contact: {
         type: Number,
         required: true,
-        minlength: 10,
-        maxlength: 10
+        // minlength: 10,
+        //maxlength: 10
     },
     listOfProducts: {
         type: Array,
@@ -31,9 +35,9 @@ const userSchema = new Schema({
     },
     budget: {
         type: Number,
-        required: true,
-        default: 0,
-        minimum: 0
+        //required: true,
+        // default: 0,
+        //minimum: 0
     }
 }, { timestamps: true });
 
