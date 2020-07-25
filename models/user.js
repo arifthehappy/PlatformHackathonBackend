@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
-const { stringify } = require('querystring');
+//const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     index: {
         type: Number,
         default: 0,
-        unique: true
+        //unique: true
     },
     name: {
         type: String,
@@ -14,10 +14,12 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     username: {
-        type: String
+        type: String,
+        unique: true
     },
     password: {
         type: String,
@@ -40,6 +42,8 @@ const userSchema = new Schema({
         //minimum: 0
     }
 }, { timestamps: true });
+
+//userSchema.plugin(uniqueValidator, { message: 'Error, not unique' });
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

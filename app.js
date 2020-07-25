@@ -28,7 +28,7 @@ app.use(morgan('dev'));
 
 
 app.get('/', (req, res) => {
-    res.redirect('/users');
+    res.render('index');
 });
 
 
