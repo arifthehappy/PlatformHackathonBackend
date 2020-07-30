@@ -1,6 +1,7 @@
 const User = require('../models/user');
-
+const passport = require('passport');
 const bcrypt = require('bcryptjs');
+//const flash = require('flash');
 
 //const router = require('../routes/userRoutes');
 
@@ -66,13 +67,25 @@ const user_register_post = (req, res) => {
 
 }
 
+
+//Login Form
 const login = (req, res) => {
     res.render('users/login');
+}
+
+//Login process
+const login_post = (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/users/login',
+        //failureFlash: true
+    })(req, res, next);
 }
 
 module.exports = {
     user_register_get,
     user_register_post,
     login,
+    login_post,
     user_index
 }

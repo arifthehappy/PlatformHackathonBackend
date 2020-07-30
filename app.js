@@ -2,14 +2,18 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
+const passport = require('passport');
+const config = require('./config/database');
+//const flash = require('flash');
+
 
 
 //express app
 const app = express();
 
 //connect to mongodb
-const dbURI = 'mongodb+srv://arif:arif1234@clusterx.mzj4i.gcp.mongodb.net/ClusterX?retryWrites=true&w=majority';
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+const dbURI = config.database;
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then((result) => {
         console.log('connected to db');
         app.listen(3000);
@@ -26,7 +30,15 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
+// Passport Config
+require('./config/passport')(passport);
 
+//passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// Home route
 app.get('/', (req, res) => {
     res.render('index');
 });
