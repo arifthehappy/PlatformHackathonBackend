@@ -1,5 +1,7 @@
 
 E-commerce and Authentication
 
-GO TO:
+To go home:
+localhost:3000/
+TO register user:
 localhost:3000/users/register
